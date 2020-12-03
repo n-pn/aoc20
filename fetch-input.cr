@@ -18,19 +18,19 @@ def download_input(day, year = 2020)
   FileUtils.mkdir_p(File.dirname(filename))
 
   puts "Downloading input for day #{day} year #{year}"
+
+  input_url = "https://adventofcode.com/#{year}/day/#{day}/input"
   headers = HTTP::Headers{"cookie" => "session=#{ENV["AOC_SESSION"]}"}
 
   while true
-    response = HTTP::Client.get \
-      "https://adventofcode.com/#{year}/day/#{day}/input",
-      headers: headers
+    response = HTTP::Client.get(input_url, headers: headers)
+
     if response.status_code == 200
       File.write(filename, response.body)
       puts "Response written to #{filename}. Good luck!"
       break
     else
-      puts "Failed getting input..."
-      puts response.status_code
+      puts "Failed getting input: #{response.status_code}"
     end
 
     sleep 15
