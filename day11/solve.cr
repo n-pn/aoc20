@@ -2,7 +2,7 @@ class Day11
   getter input = [] of Array(Char)
 
   def initialize(fname : String = "input.txt")
-    file = File.join({{ __DIR__ }}, fname)
+    file = File.join(__DIR__, fname)
 
     list = File.read_lines(file).map do |line|
       line.chars.unshift('.').push('.')
